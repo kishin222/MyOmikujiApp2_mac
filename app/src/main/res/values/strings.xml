@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">世界一細かいおみくじ</string>
+    <string name="button_text">あなたの運勢は？</string>
+    <string name="url_button">詳しくはこちら</string>
+    <string name="un_text">早速ひいてみよう！</string>
+    <string name="imi_text">" "</string>
+    <string name="result_text">" "</string>
+    <string name="yomi_text">" "</string>
+</resources>
