@@ -13,6 +13,10 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.text.Html
+import android.util.Log
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
 
 //import sun.jvm.hotspot.utilities.IntArray
 //import android.R
@@ -21,9 +25,20 @@ import android.text.Html
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var mInterstitialAd: InterstitialAd
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //Initialize Mobile Ads SDK
+        MobileAds.initialize(this) {}
+        mInterstitialAd = InterstitialAd(this)
+        //テスト広告
+        //mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
+        mInterstitialAd.adUnitId = "ca-app-pub-3367290713439388/4692749204"
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
+
 
 //        //JavaのArray
 //            val abcArr = arrayOf(arrayOf("abc", "def"), arrayOf<String>("ghi", "jkl"))
@@ -194,6 +209,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         urlButton.setOnClickListener {
+            //広告を表示する
+            if (mInterstitialAd.isLoaded) {
+                mInterstitialAd.show()
+            } else {
+                Log.d("TAG", "The interstitial wasn't loaded yet.")
+            }
+
             val uri = Uri.parse("https://will-kishin.com/4351/")
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
